@@ -1,15 +1,15 @@
-const Sequelize = require('sequelize');
+require('dotenv').config();
+const express = require('express');
+const bodyParser = require('body-parser');
 
-const sequelize = new Sequelize('ms_psp', 'super', 'super-secret', {
-  host: 'localhost',
-  dialect: 'postgres'
-});
+const loadRoutes = require('./src/domains/routes');
 
-sequelize
-  .authenticate()
-  .then(() => {
-    console.log('Connection has been established successfully.');
-  })
-  .catch(err => {
-    console.error('Unable to connect to the database:', err);
-  });
+const app = express();
+const PORT = process.env.PORT || 3333;
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+
+loadRoutes(app);
+
+app.listen(PORT, () => console.log(`Listening on port: ${PORT}`));
