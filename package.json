@@ -7,8 +7,9 @@
   "private": true,
   "scripts": {
     "dev:dotenv": "nodemon -r dotenv/config app.js",
-    "migrations": "dotenv -e ./.env sequelize db:migrate",
+    "migrations": "dotenv -e ./.env sequelize db:migrate && dotenv -e ./.env sequelize db:seed:all",
     "migrations:down": "dotenv -e ./.env sequelize db:migrate:undo",
+    "migrations:down-all": "dotenv -e ./.env sequelize db:migrate:undo:all",
     "migrations:create": "sequelize migration:generate --name"
   },
   "dependencies": {
