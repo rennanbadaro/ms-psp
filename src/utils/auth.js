@@ -11,9 +11,10 @@ const getAuthenticator = ({ jwt = jwtDefault, model }) => async (req, res, next)
   }
 
   const bearer = req.headers.authorization;
+  const token = bearer && bearer.replace('Bearer ', '');
 
   try {
-    const decoded = jwt.verify(bearer, JWT_SECRET);
+    const decoded = jwt.verify(token, JWT_SECRET);
     const customer = await model.findByPk(decoded.id);
 
     if (!customer.id) {

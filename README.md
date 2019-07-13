@@ -19,22 +19,23 @@ npm run migrations
 ```
 
 ## Development
-### Folder Structure
+### Folder Structure Overview
 ```
 .
 +-- README.md
-+-- app.js
-+-- src
++-- index.js
++-- db
+|    +-- migrations
+|    +-- seeders
 |    +-- config
-|    |    +-- db
++-- src
+|    +-- app.js
+|    +-- utils
+|    +-- models
 |    +-- domains
 |    |    +-- transactions
 |    |    +-- payables
-+-- tests
-|    +-- functional
-|    |    +-- domains
-|    +-- unit
-|    |    +-- domains
+
 ```
 ### Migrations
 
