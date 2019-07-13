@@ -8,12 +8,16 @@ const req = {
   }
 };
 
+let jwt;
 let model;
 let next;
 let endFnMock;
 
 describe('Auth Middleware', () => {
   beforeEach(() => {
+    jwt = {
+      verify: jest.fn().mockReturnValue({ id: 1 })
+    };
     model = {
       findByPk: jest.fn().mockResolvedValue({ id: 1 })
     };
@@ -25,10 +29,7 @@ describe('Auth Middleware', () => {
   });
 
   it('Should call next middleware if auth is successful', async () => {
-    const jwt = {
-      verify: jest.fn().mockReturnValue({ id: 1 })
-    };
-    const auth = getAuthenticator(jwt, model);
+    const auth = getAuthenticator({ jwt, model });
 
     await auth(req, res, next);
 
@@ -39,10 +40,12 @@ describe('Auth Middleware', () => {
   });
 
   it('Should respond with 401 if no auth header is sent', async () => {
-    const req = {};
+    const req = { headers: {} };
     const next = jest.fn();
 
-    const auth = getAuthenticator(req, res, next);
+    const auth = getAuthenticator({ jwt, model });
+
+    await auth(req, res, next);
   });
 
   it('Should respond with 401 if bearer is invalid', async () => {
@@ -69,11 +72,11 @@ describe('Auth Middleware', () => {
     const jwt = {
       verify: jest.fn().mockReturnValue({ id: 1 })
     };
-    const model ={
+    const model = {
       findByPk: jest.fn().mockResolvedValue({})
     };
 
-    const auth = getAuthenticator(jwt, model);
+    const auth = getAuthenticator({ jwt, model });
 
     await auth(req, res, next);
 

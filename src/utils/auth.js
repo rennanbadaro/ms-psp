@@ -5,7 +5,7 @@ const { JWT_SECRET } = process.env;
 
 const sign = ({ id, jwt = jwtDefault }) => jwt.sign({ id }, JWT_SECRET, { expiresIn: '24h' });
 
-const getAuthenticator = (jwt = jwtDefault, Model) => async (req, res, next) => {
+const getAuthenticator = ({ jwt = jwtDefault, model }) => async (req, res, next) => {
   if (!req.headers.authorization) {
     return res.status(UNAUTHORIZED).end();
   }
@@ -14,7 +14,7 @@ const getAuthenticator = (jwt = jwtDefault, Model) => async (req, res, next) => 
 
   try {
     const decoded = jwt.verify(bearer, JWT_SECRET);
-    const customer = await Model.findByPk(decoded.id);
+    const customer = await model.findByPk(decoded.id);
 
     if (!customer.id) {
       return res.status(UNAUTHORIZED).end();
