@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize');
 const sequelize = require('../../db/sequelize');
 
-const Payable = sequelize.define(
+const Payable = (connection = sequelize()) => connection.define(
   'Payable',
   {
     id: {

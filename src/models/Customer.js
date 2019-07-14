@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize');
 const sequelize = require('../../db/sequelize');
 
-module.exports = sequelize.define(
+module.exports = (connection = sequelize()) => connection.define(
   'Customer',
   {
     id: {
