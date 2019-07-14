@@ -8,13 +8,13 @@ class CustomerService {
 
   async login({ email, password }) {
     if (!email || !password) {
-      throw customErrors.unathorized;
+      throw customErrors.auth.unathorized;
     }
 
     const { id } = (await this.repository.get({ email, password }).catch(console.error)) || {};
 
     if (!id) {
-      throw customErrors.unathorized;
+      throw customErrors.auth.unathorized;
     }
 
     const token = sign({ id });

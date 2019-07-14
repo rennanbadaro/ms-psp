@@ -1,7 +1,7 @@
 const httpStatusCodes = require('http-status-codes');
 const { Router } = require('express');
 
-const { getCustomerService } = require('../factories/customerFactory');
+const { getCustomerService } = require('../factories');
 
 const service = getCustomerService();
 const router = Router();

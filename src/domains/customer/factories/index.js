@@ -1,9 +1,9 @@
-const Customer = require('../../../models/Customer');
+const getCustomerModel = require('../../../models/Customer');
 const CustomerService = require('../services/CustomerService');
 const CustomerRepository = require('../repositories/CustomerRepository');
 
 const getCustomerRepository = (params = {}) => {
-  const model = params.model || Customer;
+  const model = params.model || getCustomerModel();
 
   return new CustomerRepository({ model });
 };
