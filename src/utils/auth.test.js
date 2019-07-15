@@ -13,7 +13,7 @@ let model;
 let next;
 let endFnMock;
 
-describe.skip('Auth Middleware', () => {
+describe('Auth Middleware', () => {
   beforeEach(() => {
     jwt = {
       verify: jest.fn().mockReturnValue({ id: 1 })
