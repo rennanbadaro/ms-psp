@@ -30,22 +30,12 @@ module.exports = {
           key: 'id'
         }
       },
-      paymentMethodId: {
-        type: Sequelize.INTEGER,
-        references: {
-          model: 'tb_payment_method',
-          key: 'id'
-        }
-      },
       amount: Sequelize.DECIMAL,
       fee: Sequelize.DECIMAL,
       paymentDate: {
         type: Sequelize.DATE,
         defaultValue: Sequelize.NOW
       },
-      cardOwnerName: Sequelize.STRING,
-      cardExpirationDate: Sequelize.DATE,
-      cvv: Sequelize.STRING,
       createdAt: {
         type: Sequelize.DATE,
         defaultValue: Sequelize.NOW
