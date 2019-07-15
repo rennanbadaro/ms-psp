@@ -47,7 +47,7 @@ const Payable = (connection = sequelize()) => connection.define(
     }
   },
   {
-    tableName: 'tb_transaction'
+    tableName: 'tb_payable'
   }
 );
 

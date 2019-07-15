@@ -67,7 +67,7 @@ class TransactionService {
         throw customErrors.transaction.generic;
       }
 
-      await this.payableService.create(transaction);
+      await this.payableService.create(createdTransaction);
 
       return createdTransaction;
     } catch (err) {

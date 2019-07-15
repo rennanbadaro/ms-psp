@@ -1,6 +1,6 @@
 
 class PayableRepository {
-  contructor(params) {
+  constructor(params) {
     this.model = params.model;
   }
 

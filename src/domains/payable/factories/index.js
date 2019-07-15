@@ -1,17 +1,17 @@
-const PayableRepository = require('../repositories/PayableRepository');
-const PayableService = require('../services/PayableService');
+const Repository = require('../repositories/PayableRepository');
+const Service = require('../services/PayableService');
 const getPayableModel = require('../../../models/Payable');
 
 const getPayableRepository = (params = {}) => {
   const model = params.model || getPayableModel();
 
-  return new PayableRepository({ model });
+  return new Repository({ model });
 };
 
 const getPayableService = (params = {}) => {
   const repository = params.repository || getPayableRepository();
 
-  return new PayableService({ repository });
+  return new Service({ repository });
 };
 
 module.exports = {

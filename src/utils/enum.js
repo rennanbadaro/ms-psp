@@ -1,5 +1,5 @@
 module.exports = Object.freeze({
-  paymentMethod: {
+  paymentMethods: {
     debit: 1,
     credit: 2
   },

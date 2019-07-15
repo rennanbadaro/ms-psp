@@ -20,5 +20,12 @@ module.exports = {
         message: `Error while creating the transaction. "${brokenProp}" is invalid`
       };
     }
+  },
+
+  payable: {
+    invalidTransactionSchema: {
+      code: httpStatusCodes.BAD_REQUEST,
+      message: 'Transaction provided is invalid'
+    }
   }
 };
