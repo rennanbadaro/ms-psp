@@ -38,7 +38,8 @@ const Payable = (connection = sequelize()) => connection.define(
         key: 'id'
       }
     },
-    totalAmount: Sequelize.DECIMAL,
+    amount: Sequelize.DECIMAL,
+    fee: Sequelize.DECIMAL,
     paymentDate: {
       type: Sequelize.DATE,
       defaultValue: Sequelize.NOW
