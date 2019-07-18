@@ -37,7 +37,7 @@ npm run start:dotenv
 |    |    +-- payable
 
 ```
-### Migrations
+### Tests
 
 Run tests
 ```bash
