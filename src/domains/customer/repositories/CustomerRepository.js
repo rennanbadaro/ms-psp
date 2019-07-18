@@ -6,6 +6,10 @@ class CustomerRepository {
   get(params = {}) {
     return this.model.findOne({ where: params });
   }
+
+  getById(id) {
+    return this.model.findByPk(id);
+  }
 }
 
 module.exports = CustomerRepository;

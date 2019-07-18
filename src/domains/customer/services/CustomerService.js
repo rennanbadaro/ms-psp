@@ -21,6 +21,10 @@ class CustomerService {
 
     return { token };
   }
+
+  getById(customerId) {
+    return this.repository.getById(customerId);
+  }
 }
 
 module.exports = CustomerService;
