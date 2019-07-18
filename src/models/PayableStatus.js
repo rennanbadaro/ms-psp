@@ -2,7 +2,7 @@ const Sequelize = require('sequelize');
 const sequelize = require('../../db/sequelize');
 
 module.exports = sequelize.define(
-  'PaymentMethod',
+  'PayableStatus',
   {
     id: {
       autoIncrement: true,
@@ -19,6 +19,6 @@ module.exports = sequelize.define(
     }
   },
   {
-    tableName: 'tb_payment_method'
+    tableName: 'tb_payable_status'
   }
 );
