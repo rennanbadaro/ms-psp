@@ -28,7 +28,6 @@
   },
   "devDependencies": {
     "jest": "^24.8.0",
-    "mockdate": "^2.0.3",
-    "supertest": "^4.0.2"
+    "mockdate": "^2.0.3"
   }
 }
