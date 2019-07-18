@@ -1,6 +1,5 @@
 ### Requirements
 NodeJS 10.16 </br>
-*Recomended: nvm* </br>
 Docker
 
 ## Start
