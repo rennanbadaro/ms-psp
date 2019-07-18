@@ -1,0 +1,193 @@
+{
+	"info": {
+		"_postman_id": "5105be5f-154c-4d95-a5c7-2d567498e0aa",
+		"name": "MS PSP",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c4581220-86d7-4482-a82d-e53667d5ac85",
+						"exec": [
+							"var jsonRes = pm.response.json();",
+							"",
+							"pm.globals.set(\"ms_psp_token\", jsonRes.token);",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"email\": \"jd@mail.com\",\n\t\"password\": \"123456\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:3333/customer/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3333",
+					"path": [
+						"customer",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST Credit Transaction",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{ms_psp_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"description\": \"Credit Transaction\",\n\t\"customerId\": 1,\n\t\"paymentMethodId\": 2,\n\t\"amount\": 1000.2,\n\t\"cardNumber\": \"213123\",\n\t\"cardOwnerName\": \"Teste\",\n    \"cardExpirationDate\": \"2020-01-02 02:00:00+00\",\n    \"cvv\": \"123\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:3333/transaction",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3333",
+					"path": [
+						"transaction"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST Debit Transaction",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{ms_psp_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "",
+						"type": "text",
+						"value": "",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"description\": \"Debit Transaction\",\n\t\"customerId\": 1,\n\t\"paymentMethodId\": 1,\n\t\"amount\": 28.99,\n\t\"cardNumber\": \"213123\",\n\t\"cardOwnerName\": \"Teste\",\n    \"cardExpirationDate\": \"2020-01-02 02:00:00+00\",\n    \"cvv\": \"123\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:3333/transaction",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3333",
+					"path": [
+						"transaction"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET Balance",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{ms_psp_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "http://localhost:3333/payable/balance",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3333",
+					"path": [
+						"payable",
+						"balance"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
