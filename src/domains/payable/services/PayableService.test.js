@@ -2,10 +2,11 @@ const moment = require('moment');
 const MockDate = require('mockdate');
 
 const enumHelper = require('../../../utils/enum');
+const customErrors = require('../../../utils/customErrors');
 const { getPayableService } = require('../factories');
 
 let repository;
-let transaction;
+let customerService;
 let service;
 
 describe('PayableServicce', () => {
@@ -14,9 +15,13 @@ describe('PayableServicce', () => {
   beforeEach(() => {
     MockDate.set('2000-11-20');
     repository = {
-      create: jest.fn().mockResolvedValue({ id: 1 })
+      create: jest.fn().mockResolvedValue({ id: 1 }),
+      getByCustomerId: jest.fn()
     };
-    service = getPayableService({ repository });
+    customerService = {
+      getById: jest.fn().mockResolvedValue({ id: 1 })
+    };
+    service = getPayableService({ repository, customerService });
   });
 
   it('Should successfuly create a new payable from a debit transaction', async () => {
@@ -75,5 +80,63 @@ describe('PayableServicce', () => {
 
     expect(repository.create).toHaveBeenCalledTimes(1);
     expect(repository.create).toHaveBeenCalledWith(expectedArgs);
+  });
+
+  it('Should return customer balance properly', async () => {
+    repository.getByCustomerId = jest
+      .fn()
+      .mockResolvedValue([
+        { statusId: 1, amount: 1000 },
+        { statusId: 1, amount: 1000 },
+        { statusId: 2, amount: 20.5 },
+        { statusId: 2, amount: 20.5 }
+      ]);
+    const expectedResult = {
+      paid: 2000,
+      pending: 41
+    };
+
+    const balance = await service.getBalanceByCustomerId({ id: 1 });
+
+    expect(service.customerService.getById).toHaveBeenCalledTimes(1);
+    expect(repository.getByCustomerId).toHaveBeenCalledTimes(1);
+    expect(balance).toMatchObject(expectedResult);
+  });
+
+  it('Should return customer balance properly when no payables exist', async () => {
+    repository.getByCustomerId = jest.fn().mockResolvedValue([]);
+    const expectedResult = {
+      paid: 0,
+      pending: 0
+    };
+
+    const balance = await service.getBalanceByCustomerId({ id: 1 });
+
+    expect(service.customerService.getById).toHaveBeenCalledTimes(1);
+    expect(repository.getByCustomerId).toHaveBeenCalledTimes(1);
+    expect(balance).toMatchObject(expectedResult);
+  });
+
+  it('Should throw if customer does not exist', async () => {
+    customerService.getById = jest.fn().mockResolvedValue({});
+
+    try {
+      await service.getBalanceByCustomerId({ id: 1 });
+    } catch (error) {
+      expect(customerService.getById).toHaveBeenCalledTimes(1);
+      expect(repository.getByCustomerId).toHaveBeenCalledTimes(0);
+      expect(error).toBe(customErrors.customer.customerNotFound);
+    }
+  });
+
+  it('Should throw a generic error if something goes wrong during get balance', async () => {
+    repository.getByCustomerId = jest.fn().mockRejectedValue('Ooops');
+
+    try {
+      await service.getBalanceByCustomerId({ id: 1 });
+    } catch (error) {
+      expect(customerService.getById).toHaveBeenCalledTimes(1);
+      expect(error).toBe(customErrors.payable.generic);
+    }
   });
 });

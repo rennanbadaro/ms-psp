@@ -53,10 +53,20 @@ const getPayableAmount = ({ paymentMethodId, amount }) => {
   return +(amount * (1 - fee)).toFixed(2);
 };
 
+const formatCustomerBalance = (totals) => {
+  const baseBalance = { paid: 0, pending: 0 };
+
+  baseBalance.paid = +totals[paymentStatus.paid].toFixed(2);
+  baseBalance.pending = +totals[paymentStatus.waitingFunds].toFixed(2);
+
+  return baseBalance;
+}
+
 module.exports = {
   validateInputTransaction,
   getPayableFee,
   getPaymentDate,
   getPayableStatus,
-  getPayableAmount
+  getPayableAmount,
+  formatCustomerBalance
 };

@@ -1,4 +1,3 @@
-
 class PayableRepository {
   constructor(params) {
     this.model = params.model;
@@ -6,6 +5,14 @@ class PayableRepository {
 
   create(payable) {
     return this.model.create(payable);
+  }
+
+  getByCustomerId(customerId) {
+    return this.model.findAll({
+      where: {
+        customerId
+      }
+    });
   }
 }
 

@@ -1,6 +1,7 @@
 const Repository = require('../repositories/PayableRepository');
 const Service = require('../services/PayableService');
 const getPayableModel = require('../../../models/Payable');
+const { getCustomerService } = require('../../customer/factories');
 
 const getPayableRepository = (params = {}) => {
   const model = params.model || getPayableModel();
@@ -10,8 +11,9 @@ const getPayableRepository = (params = {}) => {
 
 const getPayableService = (params = {}) => {
   const repository = params.repository || getPayableRepository();
+  const customerService = params.customerService || getCustomerService();
 
-  return new Service({ repository });
+  return new Service({ repository, customerService });
 };
 
 module.exports = {
