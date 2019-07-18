@@ -14,8 +14,8 @@ docker run \
   -d \
   postgres
 
-npm run start:dotenv
 npm run migrations
+npm run start:dotenv
 ```
 
 ## Development
@@ -33,8 +33,9 @@ npm run migrations
 |    +-- utils
 |    +-- models
 |    +-- domains
-|    |    +-- transactions
-|    |    +-- payables
+|    |    +-- customer
+|    |    +-- transaction
+|    |    +-- payable
 
 ```
 ### Migrations
