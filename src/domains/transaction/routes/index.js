@@ -9,12 +9,10 @@ const router = Router();
 const service = getTransactionService();
 const auth = getAuthenticator({ model: getCustomerModel() });
 
-router.post('/transaction', auth, (req, res, next) => {
+router.post('/transaction', auth, (req, res) => {
   return service
     .create(req.body)
-    .then(result => {
-      res.status(httpStatus.CREATED).send(result);
-    })
+    .then(result => res.status(httpStatus.CREATED).send(result))
     .catch(err => res.send(err));
 });
 
