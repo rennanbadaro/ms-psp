@@ -40,6 +40,19 @@ npm run start:dotenv
 ```
 ### Migrations
 
+Run tests
+```bash
+npm test
+```
+
+Run tests in watch mode
+```bash
+npm run test:watch
+```
+
+
+### Migrations
+
 Create a migration:
 ```bash
 npm run migrations:create [migration-name]
